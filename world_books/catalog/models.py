@@ -24,7 +24,7 @@ class Language(models.Model):
         return self.name
 
 
-class Pusblisher(models.Model):
+class Publisher(models.Model):
     name = models.CharField(
         max_length=20,
         help_text='Введите наименование издательства',
@@ -88,8 +88,8 @@ class Book(models.Model):
         verbose_name='Язык книги',
         null=True
     )
-    pusblisher = models.ForeignKey(
-        'Pusblisher',
+    publisher = models.ForeignKey(
+        'Publisher',
         on_delete=models.CASCADE,
         help_text='Выберите издательство',
         verbose_name='Издательство',
@@ -103,19 +103,20 @@ class Book(models.Model):
     author = models.ManyToManyField(
         'Author',
         help_text='Выберите автора (авторов) книги',
-        verbose_name='Автор (авторы) книги')
+        verbose_name='Автор (авторы) книги'
+    )
     summary = models.TextField(
         max_length=1000,
         help_text='Введите краткое описание книги',
         verbose_name='Аннотация книги'
     )
     isbn = models.CharField(
-        max_length=4,
+        max_length=13,
         help_text='Должно содержать 13 символов',
         verbose_name='ISBN книги'
     )
     price = models.DecimalField(
-        max_length=4,
+        max_length=2,
         help_text='Введите цену книги',
         verbose_name='Цена (руб.)'
     )
@@ -127,6 +128,8 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     def get_absolute_url(self):
+        """Возвращает URL-адрес для доступа к определенному экземпляру книги"""
         return reverse('book-detail', args=[str(self.id)])
+    
