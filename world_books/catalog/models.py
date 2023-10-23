@@ -116,7 +116,8 @@ class Book(models.Model):
         verbose_name='ISBN книги'
     )
     price = models.DecimalField(
-        max_length=2,
+        decimal_places=2,
+        max_digits=7,
         help_text='Введите цену книги',
         verbose_name='Цена (руб.)'
     )
