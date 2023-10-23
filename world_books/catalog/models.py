@@ -133,6 +133,11 @@ class Book(models.Model):
     def get_absolute_url(self):
         """Возвращает URL-адрес для доступа к определенному экземпляру книги"""
         return reverse('book-detail', args=[str(self.id)])
+    
+    def display_author(self):
+        return ', '.join([author.last_name for author in self.author.all()])
+    
+    display_author.short_description = 'Авторы'
 
 
 class Status(models.Model):
@@ -178,4 +183,4 @@ class BookInstance(models.Model):
         ordering = ['due_back']
 
     def __str__(self):
-        return f'{self.inventory_number} {self.book} {self.status}'
+        return f'{self.inventory_number} - {self.book} : {self.status}'
