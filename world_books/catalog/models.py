@@ -75,21 +75,21 @@ class Book(models.Model):
         verbose_name='Название книги'
     )
     genre = models.ForeignKey(
-        'Genre',
+        Genre,
         on_delete=models.CASCADE,
         help_text='Выберите жанр для книги',
         verbose_name='Жанр книги',
         null=True
     )
     language = models.ForeignKey(
-        'Language',
+        Language,
         on_delete=models.CASCADE,
         help_text='Выберите язык книги',
         verbose_name='Язык книги',
         null=True
     )
     publisher = models.ForeignKey(
-        'Publisher',
+        Publisher,
         on_delete=models.CASCADE,
         help_text='Выберите издательство',
         verbose_name='Издательство',
@@ -101,7 +101,7 @@ class Book(models.Model):
         verbose_name='Год издания'
     )
     author = models.ManyToManyField(
-        'Author',
+        Author,
         help_text='Выберите автора (авторов) книги',
         verbose_name='Автор (авторы) книги'
     )
