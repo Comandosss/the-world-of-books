@@ -10,10 +10,16 @@ class AuthorAdmin(admin.ModelAdmin):
     fields = ['last_name', 'first_name', ('date_birth', 'photo')]
 
 
+class BookInstanceInline(admin.TabularInline):
+    model = BookInstance
+    extra = 1
+
+
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'genre', 'language', 'show_authors')
     list_filter = ('genre', 'author')
+    inlines = [BookInstanceInline]
 
 
 @admin.register(BookInstance)
