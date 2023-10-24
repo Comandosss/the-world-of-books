@@ -1,9 +1,10 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib import admin
 
 
 class Genre(models.Model):
-    name = models.CharField(
+    name: models.CharField = models.CharField(
         max_length=200,
         help_text='Введите жанр книги',
         verbose_name='Жанр книги',
@@ -133,11 +134,10 @@ class Book(models.Model):
     def get_absolute_url(self):
         """Возвращает URL-адрес для доступа к определенному экземпляру книги"""
         return reverse('book-detail', args=[str(self.id)])
-    
-    def display_author(self):
+
+    @admin.display(description='Авторы')
+    def show_authors(self):
         return ', '.join([author.last_name for author in self.author.all()])
-    
-    display_author.short_description = 'Авторы'
 
 
 class Status(models.Model):
@@ -149,7 +149,7 @@ class Status(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name_plural = 'Statuses'
 
@@ -158,25 +158,24 @@ class BookInstance(models.Model):
     book = models.ForeignKey(
         Book,
         on_delete=models.CASCADE,
-        null=True
+        null=True,
     )
     inventory_number = models.CharField(
         max_length=20,
         help_text='Введите инвентарный номер экземляра',
         verbose_name='Инвентарный номер',
-        null=True
     )
     status = models.ForeignKey(
         Status,
         on_delete=models.CASCADE,
         help_text='Изменить состояние экземляра',
-        verbose_name='Статус экземпляра заказа'
+        verbose_name='Статус экземпляра заказа',
     )
     due_back = models.DateField(
         help_text='Введите конец срока статуса',
         verbose_name='Дата окончания статуса',
         null=True,
-        blank=True
+        blank=True,
     )
 
     class Meta:
