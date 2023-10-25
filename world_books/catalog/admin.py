@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from catalog.models import (Author, Book, Genre, Language,
                             Publisher, Status, BookInstance)
-from django.utils.html import format_html
+
 
 
 @admin.register(Author)
