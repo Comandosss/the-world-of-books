@@ -5,7 +5,6 @@ from catalog.models import (Author, Book, Genre, Language,
                             Publisher, Status, BookInstance)
 
 
-
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name', 'date_birth',
