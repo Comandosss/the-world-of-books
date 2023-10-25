@@ -161,4 +161,5 @@ cython_debug/
 
 *.sh
 
-world_books/media/images
+*/media/images/*
+.vscode/
