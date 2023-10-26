@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'catalog',
     'django_cleanup',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
