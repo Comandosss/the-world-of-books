@@ -1,9 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpRequest
+
+from catalog.services import fetch_books_information_from_db
 
 
-def index(request):
-    text_head = 'Это заголовок главной страницы сайта'
-    text_body = 'Это содержимое главной страницы сайта'
-    context = {'text_head': text_head, 'text_body': text_body}
-
+def index(request: HttpRequest) -> HttpResponse:
+    context = fetch_books_information_from_db()
     return render(request, 'catalog/index.html', context)
