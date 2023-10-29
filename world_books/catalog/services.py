@@ -6,8 +6,6 @@ def fetch_information_books_from_db():
     и количестве авторов
     """
 
-    text_head = 'На нашем сайте вы можете получить книги в электронном виде'
-
     books = Book.objects.only('title', 'price', 'photo')
 
     number_books = Book.objects.count()
@@ -19,7 +17,6 @@ def fetch_information_books_from_db():
     number_authors = Author.objects.count()
 
     context = {
-        'text_head': text_head,
         'books': books,
         'number_books': number_books,
         'number_instances_available': number_instances_available,
