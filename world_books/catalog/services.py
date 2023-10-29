@@ -1,14 +1,15 @@
 from catalog.models import Book, BookInstance, Author
 
 
-def fetch_books_information_from_db():
+def fetch_information_books_from_db():
     """Чтение из БД данных о книгах, их количестве в наличии
     и количестве авторов
     """
 
     text_head = 'На нашем сайте вы можете получить книги в электронном виде'
 
-    books = Book.objects.all()
+    books = Book.objects.only('title', 'price', 'photo')
+
     number_books = Book.objects.count()
 
     number_instances_available = (BookInstance.objects
@@ -22,7 +23,7 @@ def fetch_books_information_from_db():
         'books': books,
         'number_books': number_books,
         'number_instances_available': number_instances_available,
-        'number_authors': number_authors
+        'number_authors': number_authors,
     }
 
     return context
