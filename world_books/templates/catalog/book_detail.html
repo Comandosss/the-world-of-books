@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container text-start">
+        <div class="row my-2">
+            <h1>"{{ book.title }}"</h1>
+        </div>    
+        <div class="row my-2">
+            <p><strong>Автор:</strong>
+            {% for author in author_book  %}
+                <a href="">{{ author.first_name }} {{ author.last_name }}</a>
+            {% endfor %}
+            </p>
+        </div>
+        <img src="{{ book.photo.url }}" alt="connect" style="max-height: 200px;">
+        <div class="row my-2">
+            <div class="col-12">
+            <a href="{{ book.photo.url }}" class="btn btn-primary btn-sm" target="_blank">Показать обложку</a>
+            </div>
+            <div class="col">
+                <p><strong>Цена:</strong> {{ book.price }} руб.</p>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col">
+                <p><strong>Аннотация:</strong> {{ book.summary }}</p>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col mx-2 bg-primary text-white">
+                <p><strong>Жанр:</strong> {{ book.genre }}</p>
+            </div>
+            <div class="col mx-2 bg-primary text-white">
+                <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+            </div>
+            <div class="col mx-2 bg-primary text-white">
+                <p><strong>Язык:</strong> {{ book.language }}</p>
+            </div>
+            <div class="col mx-2 bg-primary text-white">
+                <p><strong>Издательство:</strong> {{ book.publisher }}</p>
+            </div>
+        </div>
+        <div style="margin-left: 20px; margin-top: 10px;">
+            <h4>Количество экземпляров книг в БД</h4>
+            {% for copy in instances %}
+                <hr>
+                <p class="text-muted">
+                    <strong>Инвентарный номер:</strong> {{ copy.inventory_number }}</p>
+                <p class="text-success">
+                    <strong>Статус экземпляра:</strong> {{ copy.status }}</p>   
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
+
+
+    
