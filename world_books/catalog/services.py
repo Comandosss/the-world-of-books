@@ -1,3 +1,5 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from catalog.models import Book, BookInstance, Author
 
 
@@ -22,8 +24,10 @@ def fetch_books_statistics():
     return context
 
 
-def retrieve_book_detail_information(pk):
-    book = Book.objects.prefetch_related('bookinstance_set__status').get(pk=pk)
+def retrieve_book_detail_information(book_id):
+    book = (Book.objects
+            .prefetch_related('bookinstance_set__status')
+            .get(pk=book_id))
 
     author_book = book.author.only('first_name', 'last_name')
 
@@ -36,3 +40,15 @@ def retrieve_book_detail_information(pk):
     }
 
     return context
+
+
+def paginate(obj, page_number, items_per_page=3):
+    paginator = Paginator(obj, items_per_page)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+
+    return page
